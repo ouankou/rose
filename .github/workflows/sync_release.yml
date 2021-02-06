@@ -1,21 +1,20 @@
 on:
   schedule:
-    - cron:  '*/30 * * * *' # every 30 minutes
+    - cron:  '0 0 * * 0' # 0:00 every Sunday
   workflow_dispatch:  # click the button on Github repo!
 
 
 jobs:
   sync_with_upstream:
     runs-on: ubuntu-latest
-    name: Sync develop with upstream latest
+    name: Sync release with upstream latest
 
     steps:
     # Step 1: run a standard checkout action, provided by github
-    - name: Checkout develop
+    - name: Checkout release
       uses: actions/checkout@v2
       with:
-        ref: develop
-        # submodules: 'recursive'     ### may be needed in your situation
+        ref: release
 
     # Step 2: run this sync action - specify the upstream repo, upstream branch to sync with, and target sync branch
     - name: Pull (Fast-Forward) upstream changes
@@ -23,8 +22,8 @@ jobs:
       uses: aormsby/Fork-Sync-With-Upstream-action@v2.3
       with:
         upstream_repository: rose-compiler/rose
-        upstream_branch: develop
-        target_branch: develop
+        upstream_branch: release
+        target_branch: release
         git_pull_rebase_config: true
         github_token: ${{ secrets.GITHUB_TOKEN }}   # optional, for accessing repos that require authentication
 
