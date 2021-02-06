@@ -23,8 +23,8 @@ jobs:
       uses: aormsby/Fork-Sync-With-Upstream-action@v2.3
       with:
         upstream_repository: rose-compiler/rose
-        upstream_branch: release
-        target_branch: release
+        upstream_branch: develop
+        target_branch: develop
         git_pull_rebase_config: true
         github_token: ${{ secrets.GITHUB_TOKEN }}   # optional, for accessing repos that require authentication
 
